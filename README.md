@@ -1,6 +1,11 @@
-SimpleNES
+my-simple-nes
 =============
 
+Forked from [SimpleNES](https://github.com/amhndu/SimpleNES) by Amish K. Naidu.
+
+With my own modifications.
+
+---
 
 An NES emulator written in C++ for nothing but fun.
 
