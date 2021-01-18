@@ -1,34 +1,27 @@
 #ifndef CPUOPCODES_H_INCLUDED
 #define CPUOPCODES_H_INCLUDED
 
-namespace sn
-{
-    const auto InstructionModeMask = 0x3;
+namespace sn {
+const auto InstructionModeMask = 0x3;
 
-    const auto OperationMask = 0xe0;
-    const auto OperationShift = 5;
+const auto OperationMask  = 0xe0;
+const auto OperationShift = 5;
 
-    const auto AddrModeMask = 0x1c;
-    const auto AddrModeShift = 2;
+const auto AddrModeMask  = 0x1c;
+const auto AddrModeShift = 2;
 
-    const auto BranchInstructionMask = 0x1f;
-    const auto BranchInstructionMaskResult = 0x10;
-    const auto BranchConditionMask = 0x20;
-    const auto BranchOnFlagShift = 6;
+const auto BranchInstructionMask       = 0x1f;
+const auto BranchInstructionMaskResult = 0x10;
+const auto BranchConditionMask         = 0x20;
+const auto BranchOnFlagShift           = 6;
 
-    const auto NMIVector = 0xfffa;
-    const auto ResetVector = 0xfffc;
-    const auto IRQVector = 0xfffe;
+const auto NMIVector   = 0xfffa;
+const auto ResetVector = 0xfffc;
+const auto IRQVector   = 0xfffe;
 
-    enum BranchOnFlag
-    {
-        Negative,
-        Overflow,
-        Carry,
-        Zero
-    };
+enum BranchOnFlag { Negative, Overflow, Carry, Zero };
 
-    enum Operation1
+enum Operation1
     {
         ORA,
         AND,
@@ -40,7 +33,7 @@ namespace sn
         SBC,
     };
 
-    enum AddrMode1
+enum AddrMode1
     {
         IndexedIndirectX,
         ZeroPage,
@@ -52,7 +45,7 @@ namespace sn
         AbsoluteX,
     };
 
-    enum Operation2
+enum Operation2
     {
         ASL,
         ROL,
@@ -64,7 +57,7 @@ namespace sn
         INC,
     };
 
-    enum AddrMode2
+enum AddrMode2
     {
         Immediate_,
         ZeroPage_,
@@ -74,7 +67,7 @@ namespace sn
         AbsoluteIndexed = 7,
     };
 
-    enum Operation0
+enum Operation0
     {
         BIT  = 1,
         STY  = 4,
@@ -83,7 +76,7 @@ namespace sn
         CPX,
     };
 
-    enum OperationImplied
+enum OperationImplied
     {
         NOP = 0xea,
         BRK = 0x00,
@@ -120,25 +113,20 @@ namespace sn
         TSX = 0xba,
     };
 
-    //0 implies unused opcode
-    int OperationCycles[0x100] = {
-            7, 6, 0, 0, 0, 3, 5, 0, 3, 2, 2, 0, 0, 4, 6, 0,
-            2, 5, 0, 0, 0, 4, 6, 0, 2, 4, 0, 0, 0, 4, 7, 0,
-            6, 6, 0, 0, 3, 3, 5, 0, 4, 2, 2, 0, 4, 4, 6, 0,
-            2, 5, 0, 0, 0, 4, 6, 0, 2, 4, 0, 0, 0, 4, 7, 0,
-            6, 6, 0, 0, 0, 3, 5, 0, 3, 2, 2, 0, 3, 4, 6, 0,
-            2, 5, 0, 0, 0, 4, 6, 0, 2, 4, 0, 0, 0, 4, 7, 0,
-            6, 6, 0, 0, 0, 3, 5, 0, 4, 2, 2, 0, 5, 4, 6, 0,
-            2, 5, 0, 0, 0, 4, 6, 0, 2, 4, 0, 0, 0, 4, 7, 0,
-            0, 6, 0, 0, 3, 3, 3, 0, 2, 0, 2, 0, 4, 4, 4, 0,
-            2, 6, 0, 0, 4, 4, 4, 0, 2, 5, 2, 0, 0, 5, 0, 0,
-            2, 6, 2, 0, 3, 3, 3, 0, 2, 2, 2, 0, 4, 4, 4, 0,
-            2, 5, 0, 0, 4, 4, 4, 0, 2, 4, 2, 0, 4, 4, 4, 0,
-            2, 6, 0, 0, 3, 3, 5, 0, 2, 2, 2, 0, 4, 4, 6, 0,
-            2, 5, 0, 0, 0, 4, 6, 0, 2, 4, 0, 0, 0, 4, 7, 0,
-            2, 6, 0, 0, 3, 3, 5, 0, 2, 2, 2, 2, 4, 4, 6, 0,
-            2, 5, 0, 0, 0, 4, 6, 0, 2, 4, 0, 0, 0, 4, 7, 0,
-        };
+// 0 implies unused opcode
+int OperationCycles[0x100] = {
+    7, 6, 0, 0, 0, 3, 5, 0, 3, 2, 2, 0, 0, 4, 6, 0, 2, 5, 0, 0, 0, 4, 6, 0,
+    2, 4, 0, 0, 0, 4, 7, 0, 6, 6, 0, 0, 3, 3, 5, 0, 4, 2, 2, 0, 4, 4, 6, 0,
+    2, 5, 0, 0, 0, 4, 6, 0, 2, 4, 0, 0, 0, 4, 7, 0, 6, 6, 0, 0, 0, 3, 5, 0,
+    3, 2, 2, 0, 3, 4, 6, 0, 2, 5, 0, 0, 0, 4, 6, 0, 2, 4, 0, 0, 0, 4, 7, 0,
+    6, 6, 0, 0, 0, 3, 5, 0, 4, 2, 2, 0, 5, 4, 6, 0, 2, 5, 0, 0, 0, 4, 6, 0,
+    2, 4, 0, 0, 0, 4, 7, 0, 0, 6, 0, 0, 3, 3, 3, 0, 2, 0, 2, 0, 4, 4, 4, 0,
+    2, 6, 0, 0, 4, 4, 4, 0, 2, 5, 2, 0, 0, 5, 0, 0, 2, 6, 2, 0, 3, 3, 3, 0,
+    2, 2, 2, 0, 4, 4, 4, 0, 2, 5, 0, 0, 4, 4, 4, 0, 2, 4, 2, 0, 4, 4, 4, 0,
+    2, 6, 0, 0, 3, 3, 5, 0, 2, 2, 2, 0, 4, 4, 6, 0, 2, 5, 0, 0, 0, 4, 6, 0,
+    2, 4, 0, 0, 0, 4, 7, 0, 2, 6, 0, 0, 3, 3, 5, 0, 2, 2, 2, 2, 4, 4, 6, 0,
+    2, 5, 0, 0, 0, 4, 6, 0, 2, 4, 0, 0, 0, 4, 7, 0,
 };
+}; // namespace sn
 
 #endif // CPUOPCODES_H_INCLUDED

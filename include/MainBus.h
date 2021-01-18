@@ -1,15 +1,14 @@
 #ifndef MEMORY_H
 #define MEMORY_H
-#include <vector>
-#include <map>
-#include <functional>
-#include <memory>
 #include "Cartridge.h"
 #include "Mapper.h"
+#include <functional>
+#include <map>
+#include <memory>
+#include <vector>
 
-namespace sn
-{
-    enum IORegisters
+namespace sn {
+enum IORegisters
     {
         PPUCTRL = 0x2000,
         PPUMASK,
@@ -24,24 +23,26 @@ namespace sn
         JOY2 = 0x4017,
     };
 
-    class MainBus
-    {
-        public:
-            MainBus();
-            Byte read(Address addr);
-            void write(Address addr, Byte value);
-            bool setMapper(Mapper* mapper);
-            bool setWriteCallback(IORegisters reg, std::function<void(Byte)> callback);
-            bool setReadCallback(IORegisters reg, std::function<Byte(void)> callback);
-            const Byte* getPagePtr(Byte page);
-        private:
-            std::vector<Byte> m_RAM;
-            std::vector<Byte> m_extRAM;
-            Mapper* m_mapper;
+class MainBus
+{
+public:
+    MainBus();
+    Byte read(Address addr);
+    void write(Address addr, Byte value);
+    bool setMapper(Mapper * mapper);
+    bool setWriteCallback(IORegisters reg, std::function<void(Byte)> callback);
+    bool setReadCallback(IORegisters reg, std::function<Byte(void)> callback);
+    const Byte * getPagePtr(Byte page);
 
-            std::map<IORegisters, std::function<void(Byte)>> m_writeCallbacks;
-            std::map<IORegisters, std::function<Byte(void)>> m_readCallbacks;;
-    };
+private:
+    std::vector<Byte> m_RAM;
+    std::vector<Byte> m_extRAM;
+    Mapper *          m_mapper;
+
+    std::map<IORegisters, std::function<void(Byte)>> m_writeCallbacks;
+    std::map<IORegisters, std::function<Byte(void)>> m_readCallbacks;
+    ;
 };
+}; // namespace sn
 
 #endif // MEMORY_H
